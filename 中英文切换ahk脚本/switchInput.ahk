@@ -9,18 +9,22 @@ switchInput(){
 
 	tmp = cont
 
-	while (StrLen(cont) > 0){
-		;msgbox %cont%
+	;不太懂ahk是怎么匹配换行符的，而且这里居然cont是个空值
+	while (!RegExMatch(cont, "\s+") && cont != ""){
+		;msgbox 11%cont%22
 		Send {Lshift DOWN}
 		Send {Left}
 		Send {Lshift UP}
 		send, ^x
 
 		cont = %clipboard%
+		clipboard =  ;清空粘帖板,不然当前无值时，会重复取之前的粘帖值
 	}
 	; 由于上面的循环会吃掉一个空白，所以这里补上一个
 	; 在行首的时候会出现问题
-	send {Space}
+	if(cont == ""){
+		send {Space}
+	}
 	
 	if (tmp == "￥"){
 		Send {Lshift}
@@ -34,4 +38,5 @@ switchInput(){
 		Send {Lshift}
 	}
 }
-f6::switchInput()
+;f6::switchInput()
+^Backspace::switchInput() ;设置成Ctrl + Del，很符合习惯，反正每次打错都要del，这里只不过是加点料
