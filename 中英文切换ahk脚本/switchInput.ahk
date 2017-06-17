@@ -32,8 +32,15 @@ switchInput(){
 	
 	Send {Lshift}
 	;各种替换特殊字符
-	cont := RegExReplace(cont, "\s+", "") 
+	;莫名会有两个换行，那么如果有的话，只保留一个，样式就不会乱
+	;个人觉得这写法很点睛，既然不能在正则中匹配，那么我就当你先匹配上再进行操作
+	cont := RegExReplace(cont, "(\s)+", "$1") 
 	cont := StrReplace(cont, "￥", "$") 
+	cont := StrReplace(cont, "【", "[") 
+	cont := StrReplace(cont, "】", "]") 
+	cont := StrReplace(cont, "（", "(") 
+	cont := StrReplace(cont, "）", ")") 
+	cont := StrReplace(cont, "：", ":")
 	cont := StrReplace(cont, "·", "``````")
 	
 	if(RegExMatch(cont, "^·+$")){
