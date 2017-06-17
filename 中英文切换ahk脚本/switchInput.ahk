@@ -27,7 +27,7 @@ switchInput(){
 	
 	if(last == " "){
 		;msgbox 11%last%22
-		send {Space}
+		;send {Space}
 	}
 	
 	Send {Lshift}
