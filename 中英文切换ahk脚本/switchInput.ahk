@@ -35,7 +35,7 @@ switchInput(){
 	;莫名会有两个换行，那么如果有的话，只保留一个，样式就不会乱
 	;个人觉得这写法很点睛，既然不能在正则中匹配，那么我就当你先匹配上再进行操作
 	bool := false
-	if(RegExMatch(cont, "[·、×]+$")){
+	if(RegExMatch(cont, "[·、×》]+$")){
 		;这种情况是中文md，转换成 `之后还要保持中文输入状态，所以要两次LShift
 		;msgbox herer
 		;Send {Lshift}
@@ -51,6 +51,7 @@ switchInput(){
 	cont := StrReplace(cont, "·", "``````")
 	cont := StrReplace(cont, "、", "/")
 	cont := StrReplace(cont, "×", "*")
+	cont := StrReplace(cont, "》", ">")
 	
 	send, %cont%
 	if(bool){
